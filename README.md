@@ -1,21 +1,21 @@
-### messenger
-# server setup
+# messenger
+### server setup
 ```
 npm install
 ```
-# client setup
+### client setup
 ```
 npm run client:install
 ```
-# build
+### build
 ```
 npm run client:build
 ```
-# start
+### start
 ```
 npm run start
 ```
-# dev
+### dev
 ```
 npm run dev
 ```
