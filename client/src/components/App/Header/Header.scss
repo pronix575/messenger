@@ -1,0 +1,41 @@
+.header {
+    position: fixed;
+    padding: 15px 0;
+    max-height: 20px;
+    // background-color: rgb(37, 19, 226);
+    width: 100%;
+    color: white;
+    // box-shadow: 0 3px 6px rgba(37, 19, 226, 0.714);
+
+    h3 {
+        margin: 0;
+        padding: 0;
+        margin: 0 0 0 10px;
+    }
+}
+
+.Beta {
+    padding: 3px 5px;
+    border: 1px solid white;
+    font-size: 9px;
+    margin: 0 0 0 10px;
+    border-radius: 4px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+}
+  
+.content-container {
+    width: 100%;
+    padding: 0 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+}

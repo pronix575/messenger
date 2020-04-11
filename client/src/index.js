@@ -8,13 +8,14 @@ import { rootReducer } from './redux/reducers/rootReducer'
 
 import * as serviceWorker from './serviceWorker';
 
-import './index.scss';
+import './components/static/css/index.scss';
+import './pages/pages.scss'
 import App from './components/App';
 
 const store = createStore(rootReducer, compose(
   applyMiddleware( thunk ),
 
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 ))
 
 ReactDOM.render(

@@ -1,0 +1,18 @@
+.app-button {
+    background-color: white;
+    border: none;
+    padding: 5px 20px;
+    // color: rgb(37, 19, 226);
+    color: black;
+    border-radius: 8px;
+    font-weight: bold;
+    font-family: 'Product Sans';
+    font-size: 17px;
+    transition: .2s;
+    cursor: pointer;
+    text-decoration: none!important;
+}
+
+.app-button:hover {
+    background-color: #e6e6e6;
+}

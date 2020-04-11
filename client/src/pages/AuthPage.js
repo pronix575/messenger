@@ -1,9 +1,11 @@
 import React from 'react'
+import { RegisterForm } from '../components/Auth/RegisterForm/RegisterForm'
 
 export const AuthPage = () => {
+
     return (
-        <div className="AuthPage">
-            <h3>AuthPage</h3>
+        <div className="authPage">
+            <RegisterForm />
         </div>
     )
 }

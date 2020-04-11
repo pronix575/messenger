@@ -13,8 +13,8 @@ const scehma = new Schema({
         unique: true
     },
 
-    id: {
-        type: Number,
+    shortid: {
+        type: String,
         required: true,
         unique: true
     },

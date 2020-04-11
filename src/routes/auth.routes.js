@@ -26,6 +26,8 @@ const {
 router.post(
   '/register',
   [
+    check('name', 'Minimum name length 6 characters')
+      .isLength({ min: 3 }),
     check('email', 'Invalid email').isEmail(),
     check('password', 'Minimum password length 6 characters')
       .isLength({ min: 6 })
@@ -43,7 +45,7 @@ router.post(
             })
         }
 
-        const {email, password} = req.body
+        const {email, password, name} = req.body
 
         const candidate = await User.findOne({ email })
 
@@ -54,13 +56,15 @@ router.post(
         const hashedPassword = await bcrypt.hash(password, 12)
         const code = shortid.generate()
 
-        const user = new User({ email, password: hashedPassword, id: code })
+        const user = new User({ name, email, password: hashedPassword, shortid: code })
 
         await user.save()
 
         res.status(201).json({ message: 'User created', type: CREATED })
 
         } catch (e) {
+
+            console.warn(e)
             res.status(500).json({ message: 'Something wrong, try again later', SOMETHING_WRONG })
         }
     }
@@ -105,7 +109,7 @@ router.post(
         { expiresIn: '1h' }
       )
 
-      res.json({ token, userId: user.id })
+      res.json({ token, userId: user.id, shortid: user.shortid })
 
     } catch (e) {
         res.status(500).json({ message: 'Something wrong, try again later', SOMETHING_WRONG })

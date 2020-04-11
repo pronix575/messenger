@@ -6,10 +6,12 @@ const config = require('config')
 const mongoose = require('mongoose')
 
 const production = process.env.NODE_ENV == "production"
-
 PRODUCTION_PORT = (production) ? 80 : 5000
-
 const PORT = config.get('port') || PRODUCTION_PORT
+
+app.use(express.json({ extended: true }))
+
+app.use('/api/auth', require('./src/routes/auth.routes'))
 
 if (production) {
     app.use('/', express.static(path.join(__dirname, 'client', 'build')))

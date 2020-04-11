@@ -1,0 +1,22 @@
+@font-face {
+  src: url(../fonts/ProductSans-Regular.ttf);
+  font-family: 'Product Sans';
+}
+
+body {
+  font-family: 'Product Sans';
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.wallpaper {
+  position: fixed;
+  height: 100vh;
+  width: 100%;
+  z-index: -1;
+  background-clip: border-box;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
