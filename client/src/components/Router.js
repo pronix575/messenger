@@ -1,34 +1,61 @@
 import React from 'react'
 import { Redirect, Switch, Route } from 'react-router-dom'
 
-import { AuthPage } from '../pages/AuthPage'
-import { SignInPage } from '../pages/SignInPage'
+import { AuthPage } from '../pages/Auth/AuthPage'
+import { SignInPage } from '../pages/Auth/SignInPage'
+import { BottomMenu } from '../components/App/Menu/BottomMenu' 
+import { Header } from './App/Header/Header'
+import { SettingsPage } from '../pages/App/SettingsPage'
 
 export const useRoutes = isAuth => {
     
+    const isMobile = window.innerWidth <= 500
+
     if (isAuth) {
         return (
-            <Switch>
-                <Route path="/user">
-                    <div style={{ padding: "50px 20px", "color": "white" }}>Hello</div>
-                </Route>
+            <>
+                { isMobile && <BottomMenu /> }
+                <Header />
+                <div className="appContainer">
+                    
+                    <Switch>
+                        <Route path="/user">
+                            
+                        </Route>
 
-                <Redirect to="/user" />
-            </Switch>
+                        <Route path="/settings">
+                            <SettingsPage />
+                        </Route>
+
+                        <Route path="/chat">
+                            
+                        </Route>
+
+                        <Route path="/search">
+                            
+                        </Route>
+
+                        <Redirect to="/settings" />
+                    </Switch>
+                </div>
+            </>    
         )
     } else {
         return (
-            <Switch>
-                <Route path="/" exact>
-                    <AuthPage />
-                </Route>
+            <>
+                <Header />
+                <Switch>
+                    <Route path="/" exact>
+                        <AuthPage />
+                    </Route>
 
-                <Route path="/sign-in" exact>
-                    <SignInPage />
-                </Route>
-    
-                <Redirect to="/" />
-            </Switch>
+                    <Route path="/sign-in" exact>
+                        <SignInPage />
+                    </Route>
+        
+                    <Redirect to="/" />
+                </Switch>
+            </>
         )
     }
 }

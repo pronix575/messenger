@@ -5,10 +5,10 @@ const storageName = 'userData'
 
 export const
 
-login = ({ token, userId, shortid }) => dispatch => {
+login = ({ token, userId, shortid, name, email }) => dispatch => {
     
     localStorage.setItem(storageName, JSON.stringify({
-        userId, token, shortid
+        userId, token, shortid, name, email
     }))
 
     return dispatch({ 
@@ -16,12 +16,18 @@ login = ({ token, userId, shortid }) => dispatch => {
         payload: {
             token,
             userId,
-            shortid
+            shortid,
+            name,
+            email
         }
     })
 },
 
-logout = () => dispatch => dispatch({ type: LOG_OUT }),
+logout = () => dispatch => {
+    localStorage.removeItem(storageName)
+
+    return dispatch({ type: LOG_OUT })
+},
 
 register = async (form) => {
     try {

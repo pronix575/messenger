@@ -1,17 +1,24 @@
 const express = require('express')
 const app = express()
-const http = require('http').createServer(app)
+
 const path = require('path')
+const http = require('http').createServer(app)
 const config = require('config')
 const mongoose = require('mongoose')
 
+//production
 const production = process.env.NODE_ENV == "production"
 PRODUCTION_PORT = (production) ? 80 : 5000
 const PORT = config.get('port') || PRODUCTION_PORT
 
+//static
+app.use(express.static('files'));
 app.use(express.json({ extended: true }))
 
+//api
 app.use('/api/auth', require('./src/routes/auth.routes'))
+app.use('/api/upload', require('./src/routes/staticFiles.routes'))
+
 
 if (production) {
     app.use('/', express.static(path.join(__dirname, 'client', 'build')))

@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { useRoutes } from './Router';
-import { BrowserRouter as Router } from 'react-router-dom'
-
-import { Header } from './App/Header/Header' 
+import { BrowserRouter as Router } from 'react-router-dom' 
 
 import { authInit } from '../redux/actions/authActions'
 import { useSelector, useDispatch } from 'react-redux'
@@ -17,14 +15,14 @@ const App = () => {
   useEffect(() => {
     dispatch(authInit())
   })
-
+  
   const isAuth = useSelector(state => state.auth.isAuth)
   const routes = useRoutes(isAuth)
 
   return (
     <Router>
       <div className="App">
-        <Header />
+        
         <div className="wallpaper" style={{ "backgroundImage": `url(${ wallpaperMojave })` }}></div>
         { routes }
       </div>

@@ -5,6 +5,7 @@ const initialState = {
     token: null,
     userId: null,
     shortid: null,
+    email: null
 }
 
 const handlers = {
@@ -13,13 +14,18 @@ const handlers = {
         isAuth: true, 
         token: payload.token, 
         userId: payload.userId,
-        shortid: payload.shortid 
+        shortid: payload.shortid,
+        name: payload.name,
+        email: payload.email
     }),
     [LOG_OUT]: state => ({ 
         ...state, 
         isAuth: false,
         token: null,
-        userId: null
+        userId: null,
+        shortid: null,
+        name: null,
+        email: null
      }),
     DEFAULT: state => state
 }

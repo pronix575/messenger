@@ -19,7 +19,6 @@ export const SignInForm = () => {
         try {
 
             const data = await request('/api/auth/login', 'POST', { ...form })
-            console.log(data)
             
             if (data) {
                 dispatch(login(data))
@@ -29,7 +28,7 @@ export const SignInForm = () => {
             console.warn(e)
         }
 
-    }, [form])
+    }, [form, dispatch])
 
     const changeHandler = event => {
         setForm({ ...form, [event.target.name]: event.target.value })
