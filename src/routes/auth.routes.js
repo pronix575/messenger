@@ -89,7 +89,7 @@ router.post(
         })
       }
 
-      const {email, password} = req.body
+      const { email, password } = req.body
 
       const user = await User.findOne({ email })
 
@@ -108,8 +108,17 @@ router.post(
         config.get('jwtSecret'),
         { expiresIn: '1h' }
       )
+      
+      console.log(user.avatar)
 
-      res.json({ token, userId: user.id, shortid: user.shortid, name: user.name, email: user.email })
+      res.json({ 
+        token, 
+        userId: user.id, 
+        shortid: user.shortid, 
+        name: user.name, 
+        email: user.email,
+        avatar: user.avatar 
+      })
 
     } catch (e) {
         res.status(500).json({ message: 'Something wrong, try again later', SOMETHING_WRONG })

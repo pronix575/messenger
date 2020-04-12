@@ -1,15 +1,19 @@
 import { LOG_IN, LOG_OUT } from '../types'
 import { request } from '../../http/Request'
+import { setAvatar } from './userActions'
 
 const storageName = 'userData'
 
 export const
 
-login = ({ token, userId, shortid, name, email }) => dispatch => {
+login = ({ token, userId, shortid, name, email, avatar }) => dispatch => {
     
     localStorage.setItem(storageName, JSON.stringify({
-        userId, token, shortid, name, email
+        userId, token, shortid, name, email, avatar
     }))
+
+    dispatch(setAvatar(avatar))
+    console.log(avatar)
 
     return dispatch({ 
         type: LOG_IN, 

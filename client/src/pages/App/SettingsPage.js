@@ -8,6 +8,8 @@ export const SettingsPage = () => {
 
     const dispatch = useDispatch()
 
+    const auth = useSelector(state => state.auth)
+
     const [file, setFile] = useState(null)
 
     const logoutHandler = () => {
@@ -23,7 +25,8 @@ export const SettingsPage = () => {
         try {
             const response = await fetch('/api/upload/avatar', {
                 method: 'POST',
-                body: avatar
+                body: avatar,
+                headers: { authorization: `Bearer ${ auth.token }`, userId: auth.userId } 
             })
 
             console.log(response)
@@ -40,7 +43,7 @@ export const SettingsPage = () => {
          
             console.warn(e)
         }
-    }, [file, dispatch])
+    }, [file, dispatch, auth])
 
     const onChangeHandler = event => {
         setFile(event.target.files[0])
