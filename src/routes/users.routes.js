@@ -4,9 +4,11 @@ const router = Router()
 const auth = require('../middleware/auth.middleware')
 const { DOES_NOT_EXIST, SUCCESS, FAILED } = require("../event types/types")
 
+const userFilter = { name: 1, email: 1, shortid: 1, avatar: 1 }
+
 router.get('/all', auth, async (req, res) => {
     try {
-        const users = await User.find({}, { name: 1, email: 1, shortid: 1, avatar: 1 })
+        const users = await User.find({}, userFilter)
 
         if (users) {
 
@@ -26,7 +28,7 @@ router.get('/all', auth, async (req, res) => {
 
 router.get('/id/:shortid', auth, async (req, res) => {
     try {
-        const user = await User.findOne({ shortid: req.params.shortid }, { name: 1, email: 1, shortid: 1, avatar: 1 })
+        const user = await User.findOne({ shortid: req.params.shortid }, userFilter)
 
         if (user) {
 
@@ -46,7 +48,7 @@ router.get('/id/:shortid', auth, async (req, res) => {
 router.get('/email/:email', auth, async (req, res) => {
     try {
         
-        const user = await User.findOne({ email: req.params.email }, { name: 1, email: 1, shortid: 1, avatar: 1 })
+        const user = await User.findOne({ email: req.params.email }, userFilter)
 
         if (user) {
 
@@ -76,7 +78,7 @@ router.get('/name/:name', auth, async (req, res) => {
             res.json(user)
         
         } else {
-            res.json({ message: "No such user", type: DOES_NOT_EXIST }, { name: 1, email: 1, shortid: 1, avatar: 1 })
+            res.json({ message: "No such user", type: DOES_NOT_EXIST }, userFilter)
         }
 
     } catch (e) {
@@ -87,7 +89,7 @@ router.get('/name/:name', auth, async (req, res) => {
 })
 
 
-router.post('/create_new_request', auth, async (req, res) => {
+router.post('/new_request', auth, async (req, res) => {
     try {
 
         const from = await User.findOne({ _id: req.user.userId })
@@ -134,12 +136,32 @@ router.post('/create_new_request', auth, async (req, res) => {
     }
 })
 
+router.delete('/request', auth, async (req, res) => {
+    try {
+        
+        const from = await User.findOne({ _id: req.user.userId })
+        const to = await User.findOne({ shortid: req.body.shortid })
+
+        from.requests.from = from.requests.from.filter( req => req.toString() !== to.id.toString() ) 
+        to.requests.incoming = to.requests.incoming.filter( req => req.toString() !== from.id.toString() )
+
+        from.save()
+        to.save()
+
+
+    } catch (e) {
+        console.warn(e)
+
+        res.status(500).json({ message: "Server error" })
+    }
+})
+
 router.get('/incoming_requests', auth, async (req, res) => {
     try {
     
         const user = await User.findOne({ _id: req.user.userId })
 
-        const reqs = await User.findOne({ "_id": user.requests.incoming }, { name: 1, email: 1, shortid: 1, avatar: 1 }) 
+        const reqs = await User.findOne({ "_id": user.requests.incoming }, userFilter) 
         
         if (reqs) {
             return res.json(reqs)
@@ -159,7 +181,7 @@ router.get('/from_requests', auth, async (req, res) => {
     
         const user = await User.findOne({ _id: req.user.userId })
 
-        const reqs = await User.findOne({ "_id": user.requests.from }, { name: 1, email: 1, shortid: 1, avatar: 1 }) 
+        const reqs = await User.findOne({ "_id": user.requests.from }, userFilter) 
         
         console.log(reqs)
         if (reqs) {
@@ -221,11 +243,30 @@ router.get('/', auth, async (req, res) => {
 })
 
 router.get('/friends', auth, async (req, res) => {
-    
     try {
         const user = await User.findOne({ id: req.user.userId })
 
-        const users = await User.find({ id: user.friends })
+        const users = await User.find({ id: user.friends }, userFilter)
+
+        res.json({ friends: users })
+
+    } catch (e) {
+        console.warn(e)
+
+        res.status(500).json({ message: "Server error" })
+    }
+})
+
+router.delete('/friend', auth, async (req, res) => {
+    try {
+        const user = await User.findOne({ id: req.user.userId })
+        const deletingFriend = await User.findOne({ shortid: req.body.shortid })
+
+        user.friend = user.friend.filter(friend => friend.toString() !== deletingFriend.id)
+
+        user.save()
+
+        const users = await User.find({ id: user.friends }, userFilter)
 
         res.json({ friends: users })
 
