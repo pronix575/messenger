@@ -31,10 +31,22 @@ const scehma = new Schema({
 
     avatar: { type: String},
 
-    requests: [{
+    friends: [{
         type: Types.ObjectId,
         ref: 'User'
-    }]
+    }],
+
+    requests: {
+        incoming: [{
+            type: Types.ObjectId,
+            ref: 'User'
+        }],
+
+        from: [{
+            type: Types.ObjectId,
+            ref: 'User'
+        }]
+    }
 })
 
 module.exports = model('User', scehma)
