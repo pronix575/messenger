@@ -5,17 +5,14 @@ import { NavLink, Switch, Route } from 'react-router-dom'
 
 import { Button } from '../Button/Button'
 import './Header.scss'
-import { AvatarIcon } from '../Icons/AvatarIcon'
+import { AvatarImage } from '../../Settings/AvatarImage'
+import { TopMenu } from '../Menu/TopMenu'
 
 export const Header = () => {
 
     const { isAuth } = useSelector(state => state.auth)
-    const { avatarUrl } = useSelector(state => state.user)
-
     
-    const avatarImg = !!avatarUrl ? <img src={ avatarUrl } alt="" className="headerAvatarImg" /> : <AvatarIcon />
-     
-
+    const isMobile = window.innerWidth <= 500
 
     const loginChangeButton = 
         <Switch>
@@ -39,7 +36,12 @@ export const Header = () => {
                     <h3>messenger</h3>
                 </div>
                 
-                { isAuth ? avatarImg : loginChangeButton }
+                <div className="flex">
+                    { (isAuth && !isMobile) && <TopMenu /> }
+
+                    { isAuth ? <AvatarImage styles={{ fontSize: "25px" }} classList={ "flex" } /> : loginChangeButton }
+                </div>
+
             </div>
         </div>
     )

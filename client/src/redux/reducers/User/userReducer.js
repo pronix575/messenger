@@ -1,11 +1,14 @@
-import { SET_AVATAR } from '../../types'
+import { SET_AVATAR, CLOSE_CHANGE_AVATAR_WINDOW, OPEN_CHANGE_AVATAR_WINDOW } from '../../types'
 
 const initialState = {
-    avatarUrl: ''
+    avatarUrl: '',
+    changeAvatarWindow: false
 }
 
 const handlers = {
-    [SET_AVATAR]: (state, { payload }) => ({...state, avatarUrl: payload}),
+    [SET_AVATAR]: (state, { payload }) => ({ ...state, avatarUrl: payload}),
+    [CLOSE_CHANGE_AVATAR_WINDOW]: state => ({ ...state, changeAvatarWindow: false }),
+    [OPEN_CHANGE_AVATAR_WINDOW]: state => ({ ...state, changeAvatarWindow: true }),
     DEFAULT: state => state
 }
 

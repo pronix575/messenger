@@ -29,7 +29,12 @@ const scehma = new Schema({
         ref: 'Chat'
     }],
 
-    avatar: { type: String,}
+    avatar: { type: String},
+
+    requests: [{
+        type: Types.ObjectId,
+        ref: 'User'
+    }]
 })
 
 module.exports = model('User', scehma)

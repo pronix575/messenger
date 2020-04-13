@@ -8,15 +8,12 @@ const User = require('../models/User')
 const upload = multer({ storage })
 
 router.post('/avatar', auth, upload.single('avatar'), async (req, res, next) => {
-
     try {
 
-        const user = await User.findById(req.headers.userid)
+        const user = await User.findById(req.user.userId)
         
         user.avatar = req.file.filename
         user.save()
-        
-        console.log(req.file.filename)
         
 
     } catch (e) {

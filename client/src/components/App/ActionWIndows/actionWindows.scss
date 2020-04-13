@@ -1,0 +1,51 @@
+.ChangeAvatarWindowContainer {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.768);
+    backdrop-filter: blur(4px);
+    z-index: 5;
+}
+
+.closePanel {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    z-index: 6;
+}
+
+.ChangeAvatarWindow {
+    border-radius: 8px;
+    color: white;
+    margin: 0 0 100px 0;
+    z-index: 7;
+    width: 100%;
+    max-width: 450px;
+    padding: 0 15px;
+}
+
+.avatarChangingField {
+    width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.avatarChangingFieldLabel {
+    padding: 10px;
+    border: none;
+    border: 2px solid white;
+    border-radius: 10px;
+    width: 100%;
+    color: white;
+    // background:white;
+    transition: .2s;
+    cursor: pointer;
+}
+
+.avatarChangingFieldLabel:hover {
+    background: white;
+    color: black;
+}
