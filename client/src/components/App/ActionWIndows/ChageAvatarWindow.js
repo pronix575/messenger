@@ -5,7 +5,6 @@ import { setAvatar } from '../../../redux/actions/userActions'
 import { Button } from '../Button/Button'
 import { closeChangeAvatarWindow } from '../../../redux/actions/settingsActions'
 import { Loader } from '../../App/Loaders/Loader'
-import { CloseIcon } from '../Icons/CloseIcon'
 
 export const ChangeAvatarWindow = () => {
 

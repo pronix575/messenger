@@ -51,14 +51,14 @@
     padding: 0 15px;
     max-width: 450px;
     width: 100%;
-
+    
     .settingsContainer {
         max-width: 450px;
         padding: 15px;
         margin: 15px 0 0 0;
         background-color: black;
         border-radius: 10px;
-
+    
         h3, p {
             margin: 0;
             padding: 0;
@@ -68,5 +68,58 @@
             color: rgb(191, 191, 191);
             margin: 10px 0 0 0;
         }
+
+        .settingsAvatar:hover {
+            transition: .5s;
+            opacity: .7;
+        }
     }
 }
+
+
+.searchPage {
+    color: white;
+    padding: 0 15px;
+    max-width: 450px;
+    width: 100%;
+    padding: 15px;
+}
+
+.searchForm {
+    width: 100%;
+    
+    .searchField {
+        border: none;
+        width: 100%;
+        margin: 0 1px 0 0;
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    h2 {
+        padding: 0;
+        margin: 0;
+    }
+}
+
+.searchContainer {
+    background: white;
+    border-radius: 8px;
+    padding: 5px;
+    width: calc(100% - 10px);
+    max-width: 450px;
+}
+
+button:focus, button:active {
+    outline: none;
+}
+
+input:focus {
+    outline: none;
+}
+
+a:focus, a:active {
+    background: none;
+    color: initial;
+}
+

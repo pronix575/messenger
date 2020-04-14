@@ -31,18 +31,20 @@ export const SettingsPage = () => {
                             <p>id: { shortid }</p>
                         </div>    
 
-                        <AvatarImage styles={{ 
-                            "minWidth": "80px", 
-                            "height": "80px", 
-                            "borderRadius": 
-                            "8px", "fontSize": "80px" 
-                        }} />
+                        <div onClick={ () => dispatch(openChangeAvatarWindow()) } style={{ cursor: "pointer" }} className="settingsAvatar">
+                            <AvatarImage styles={{ 
+                                "minWidth": "80px", 
+                                "height": "80px", 
+                                "borderRadius": 
+                                "8px", "fontSize": "80px" 
+                            }} />
+                        </div>
                     </div>
 
-                    <div className="settingsContainer flex-end">
+                    {/* <div className="settingsContainer flex-end">
                         <div>avatar</div>
                         <Button text="change" action={ () => dispatch(openChangeAvatarWindow()) } />
-                    </div>
+                    </div> */}
 
                     <Button 
                         text={ "log out" } 
@@ -53,9 +55,10 @@ export const SettingsPage = () => {
                             width: "100%",
                             maxWidth: "480px",
                             padding: "8px",
-                            background: "linear-gradient(45deg, #5700c9, #ff1e1e)",
-                            color: "white",
-                            border: "3px solid white"
+                            // background: "linear-gradient(45deg, #5700c9, #ff1e1e)",
+                            color: "black",
+
+                            //border: "3px solid white"
                         }}
                         classList={ "flex" }
                         />

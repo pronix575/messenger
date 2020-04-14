@@ -4,7 +4,7 @@ const router = Router()
 const auth = require('../middleware/auth.middleware')
 const { DOES_NOT_EXIST, SUCCESS, FAILED } = require("../event types/types")
 
-const userFilter = { name: 1, email: 1, shortid: 1, avatar: 1 }
+const userFilter = { name: 1, email: 1, shortid: 1, avatar: 1, _id: 0 }
 
 router.get('/all', auth, async (req, res) => {
     try {
@@ -66,19 +66,23 @@ router.get('/email/:email', auth, async (req, res) => {
 router.get('/name/:name', auth, async (req, res) => {
     try {
         
-        const user = await User.find({
+        if (!req.params.name) {
+            return res.status(404).json({ message: "Not found" })
+        }
+
+        const users = await User.find({
             name: {
                 "$regex": req.params.name,
                 "$options": "i" 
             }
-        })
+        }, userFilter)
 
-        if (user) {
+        if (users) {
 
-            res.json(user)
+            res.json(users)
         
         } else {
-            res.json({ message: "No such user", type: DOES_NOT_EXIST }, userFilter)
+            res.json({ message: "No such user", type: DOES_NOT_EXIST })
         }
 
     } catch (e) {
@@ -148,6 +152,7 @@ router.delete('/request', auth, async (req, res) => {
         from.save()
         to.save()
 
+        res.json({ message: "Requesr was deleted", type: SUCCESS })
 
     } catch (e) {
         console.warn(e)
@@ -268,7 +273,7 @@ router.delete('/friend', auth, async (req, res) => {
 
         const users = await User.find({ id: user.friends }, userFilter)
 
-        res.json({ friends: users })
+        res.json({ friends: users, type: SUCCESS })
 
     } catch (e) {
         console.warn(e)

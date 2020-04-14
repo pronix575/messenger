@@ -9,11 +9,16 @@ export const
 login = ({ token, userId, shortid, name, email, avatar }) => dispatch => {
     
     localStorage.setItem(storageName, JSON.stringify({
-        userId, token, shortid, name, email, avatar
+        userId, token, shortid, name, email
     }))
+    
 
-    dispatch(setAvatar(avatar))
-    console.log(avatar)
+    if (avatar) {
+
+        localStorage.setItem('avatar', JSON.stringify(avatar))
+        dispatch(setAvatar(avatar))
+    }
+
 
     return dispatch({ 
         type: LOG_IN, 
@@ -28,7 +33,7 @@ login = ({ token, userId, shortid, name, email, avatar }) => dispatch => {
 },
 
 logout = () => dispatch => {
-    localStorage.removeItem(storageName)
+    localStorage.clear()
 
     return dispatch({ type: LOG_OUT })
 },
@@ -49,8 +54,10 @@ register = async (form) => {
 authInit = () => dispatch => {
 
     const data = JSON.parse(localStorage.getItem(storageName))
+    const avatar = JSON.parse(localStorage.getItem('avatar'))
     
     if (data && data.token) {
         dispatch(login(data))
+        dispatch(setAvatar(avatar))
     }
 }

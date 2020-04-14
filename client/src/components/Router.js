@@ -6,6 +6,7 @@ import { SignInPage } from '../pages/Auth/SignInPage'
 import { BottomMenu } from '../components/App/Menu/BottomMenu' 
 import { Header } from './App/Header/Header'
 import { SettingsPage } from '../pages/App/SettingsPage'
+import { SearchPage } from '../pages/App/SearchPage'
 
 export const useRoutes = isAuth => {
     
@@ -32,10 +33,10 @@ export const useRoutes = isAuth => {
                         </Route>
 
                         <Route path="/search">
-                            
+                            <SearchPage />
                         </Route>
 
-                        <Redirect to="/settings" />
+                        <Redirect to="/search" />
                     </Switch>
                 </div>
             </>    

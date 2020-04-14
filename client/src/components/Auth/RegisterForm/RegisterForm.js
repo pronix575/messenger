@@ -22,7 +22,6 @@ export const RegisterForm = () => {
         try {
             setLoading(true)
             const data  = await register({ ...form })
-            console.log(data, "hhh")
             
             if (data.type === 'CREATED') {
                 history.push('/sign-in')
