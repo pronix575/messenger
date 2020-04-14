@@ -1,18 +1,18 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import { AvatarIcon } from '../App/Icons/AvatarIcon'
 
-export const AvatarImage = ({ styles }) => {
+export const AvatarImage = ({ styles, imageurl }) => {
 
-    const { avatarUrl } = useSelector(state => state.user)
+    // const { avatarUrl } = useSelector(state => state.user)
+
 
     const avatarImg = <div style={{
         ...styles,
-        "backgroundImage": `url(/${ avatarUrl })`
+        "backgroundImage": `url(/${ imageurl })`
     }} className="headerAvatarImg"></div>
 
     
-    const avatar = !!avatarUrl ? avatarImg : <AvatarIcon styles={{ ...styles }} classList={ "flex" }  /> 
+    const avatar = !!imageurl ? avatarImg : <AvatarIcon styles={{ ...styles }} classList={ "flex" }  /> 
 
     return avatar
 }

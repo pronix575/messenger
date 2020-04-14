@@ -16,7 +16,7 @@ export const BottomMenu = () => {
                 <NavLink to="/search" activeStyle={{ "color": "white" }}>
                     <SearchIcon />
                 </NavLink>
-                <NavLink to="/user" activeStyle={{ "color": "white" }}>
+                <NavLink to="/users" activeStyle={{ "color": "white" }}>
                     <UserIcon />
                 </NavLink>
                 <NavLink to="/settings" activeStyle={{ "color": "white" }}>

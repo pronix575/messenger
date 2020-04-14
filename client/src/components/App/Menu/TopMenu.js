@@ -12,7 +12,7 @@ export const TopMenu = () =>
             <p>search</p>
         </NavLink>
         
-        <NavLink to="/user" activeStyle={{ "color": "white" }}>
+        <NavLink to="/users" activeStyle={{ "color": "white" }}>
             <p>users</p>
         </NavLink>
 

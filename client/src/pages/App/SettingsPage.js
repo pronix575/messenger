@@ -3,12 +3,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Button } from '../../components/App/Button/Button'
 import { logout } from '../../redux/actions/authActions'
 import { AvatarImage } from '../../components/Settings/AvatarImage'
-import { ChangeAvatarWindow } from '../../components/App/ActionWIndows/ChageAvatarWindow'
 import { openChangeAvatarWindow } from '../../redux/actions/settingsActions'
 
 export const SettingsPage = () => {
-
-    const changeWindow = useSelector(state => state.user.changeAvatarWindow)
 
     const dispatch = useDispatch()
     
@@ -16,11 +13,12 @@ export const SettingsPage = () => {
         dispatch(logout())
     }
 
+    const avatar = useSelector(state => state.user.avatarUrl)
+
     const { name, shortid, email } = useSelector(state => state.auth)
     
     return (
         <>
-            { changeWindow && <ChangeAvatarWindow /> }
 
             <div className="flex"> 
                 <div className="SettingsPage">
@@ -32,26 +30,23 @@ export const SettingsPage = () => {
                         </div>    
 
                         <div onClick={ () => dispatch(openChangeAvatarWindow()) } style={{ cursor: "pointer" }} className="settingsAvatar">
-                            <AvatarImage styles={{ 
-                                "minWidth": "80px", 
-                                "height": "80px", 
-                                "borderRadius": 
-                                "8px", "fontSize": "80px" 
+                            <AvatarImage 
+                                imageurl={ avatar }
+                                styles={{ 
+                                    "minWidth": "80px", 
+                                    "height": "80px", 
+                                    "borderRadius": 
+                                    "8px", "fontSize": "80px" 
                             }} />
                         </div>
                     </div>
-
-                    {/* <div className="settingsContainer flex-end">
-                        <div>avatar</div>
-                        <Button text="change" action={ () => dispatch(openChangeAvatarWindow()) } />
-                    </div> */}
 
                     <Button 
                         text={ "log out" } 
                         action={ logoutHandler } 
                         styles={{ 
                             margin: "15px 0 0 0", 
-                            borderRadius: "10px", 
+                            borderRadius: "8px", 
                             width: "100%",
                             maxWidth: "480px",
                             padding: "8px",

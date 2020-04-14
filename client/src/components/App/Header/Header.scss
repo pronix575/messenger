@@ -1,9 +1,9 @@
 .header {
     position: fixed;
-    padding: 15px;
+    padding: 22px 15px 0 8px;
     max-height: 20px;
-    // background-color: rgb(37, 19, 226);
-    background-color: rgb(0, 0, 0);
+    // background-color: rgba(15, 15, 15, 0.768);
+    // background-color: rgb(0, 0, 0);
     backdrop-filter: blur(4px);
     width: 100%;
     color: white;
@@ -32,8 +32,8 @@
 }
   
 .content-container {
-    width: calc(100% - 40px);
-    padding: 0 10px;
+    width: calc(100% - 33px);
+    padding: 0 0 0 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -46,13 +46,13 @@
     background-position: center;
     min-width: 35px;
     height: 35px;
-    border-radius: 50%;
+    border-radius: 8px;
 }
 
 .TopMenu {
     a {
         text-decoration: none;
-        color: gray;
+        color: rgb(171, 171, 171);
         margin: 0 20px 0 0;
     }
 }

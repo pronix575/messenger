@@ -7,6 +7,7 @@ import { BottomMenu } from '../components/App/Menu/BottomMenu'
 import { Header } from './App/Header/Header'
 import { SettingsPage } from '../pages/App/SettingsPage'
 import { SearchPage } from '../pages/App/SearchPage'
+import { UsersPage } from '../pages/App/UsersPage'
 
 export const useRoutes = isAuth => {
     
@@ -20,8 +21,8 @@ export const useRoutes = isAuth => {
                 <div className="appContainer">
                     
                     <Switch>
-                        <Route path="/user">
-                            
+                        <Route path="/users">
+                            <UsersPage />
                         </Route>
 
                         <Route path="/settings">

@@ -56,8 +56,10 @@
         max-width: 450px;
         padding: 15px;
         margin: 15px 0 0 0;
-        background-color: black;
-        border-radius: 10px;
+        background-color: rgba(0, 0, 0, 0.632);
+        backdrop-filter: blur(3px);
+        border: 2px solid white;
+        border-radius: 8px;
     
         h3, p {
             margin: 0;
@@ -123,3 +125,56 @@ a:focus, a:active {
     color: initial;
 }
 
+.userItem {
+    padding: 0 15px;
+    color: white;
+    margin: 15px 0 0 0;
+    color: black;
+    background: rgb(253, 253, 253);
+    h3 {
+        margin:  0 0 0 15px;
+        width: 100%;
+        padding: 0;
+    }
+
+    p {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.usersPage {
+    max-width: 450px;
+    width: 100%;
+    padding: 0 15px;
+}
+
+.searchUsersContainer {
+    width: 100%;
+    max-width: 450px;
+    background: rgb(253, 253, 253);
+    border-radius: 8px;
+    padding: 1px 0 15px 0;
+    color: white;
+    margin: 15px 0 0 0;
+}
+
+.selectorContainer {
+    margin: 15px 0 0 0;
+    width: 235px;
+}
+
+.selectorContainerActive {
+    background: white;
+    color: black;
+}
+
+.selectorItem {
+    height: 16px;
+    margin: 0 15px 0 0;
+    padding: 3px 15px 7px 15px;
+    border: 2px solid white;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}

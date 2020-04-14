@@ -32,7 +32,7 @@ router.get('/id/:shortid', auth, async (req, res) => {
 
         if (user) {
 
-            res.json(user)
+            res.json([user])
         
         } else {
             res.json({ message: "No such user", type: DOES_NOT_EXIST })
@@ -52,7 +52,7 @@ router.get('/email/:email', auth, async (req, res) => {
 
         if (user) {
 
-            res.json(user)
+            res.json([user])
         
         } else {
             res.json({ message: "No such user", type: DOES_NOT_EXIST })

@@ -14,6 +14,8 @@ export const Header = () => {
     
     const isMobile = window.innerWidth <= 500
 
+    const avatar = useSelector(state => state.user.avatarUrl)
+
     const loginChangeButton = 
         <Switch>
             <Route path="/" exact>
@@ -39,7 +41,7 @@ export const Header = () => {
                 <div className="flex">
                     { (isAuth && !isMobile) && <TopMenu /> }
 
-                    { isAuth ? <AvatarImage styles={{ fontSize: "25px" }} classList={ "flex" } /> : loginChangeButton }
+                    { isAuth ? <AvatarImage imageurl={ avatar } styles={{ fontSize: "25px" }} classList={ "flex" } /> : loginChangeButton }
                 </div>
 
             </div>
