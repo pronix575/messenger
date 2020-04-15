@@ -6,7 +6,7 @@ export const Selector = ({ state }) => {
         <div className="selectorContainer flex">
             {  state.map(item => 
                 
-                <div key={ item.name } className={ "selectorItem " + item.classList} onClick={ item.action }>
+                <div key={ item.name } className={ "selectorItem " + item.classList } onClick={ item.action }>
                     { item.name }
                 </div> 
             )}

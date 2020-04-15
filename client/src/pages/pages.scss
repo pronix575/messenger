@@ -43,7 +43,15 @@
 }
 
 .appContainer {
-    padding: 50px 0 0 0;
+    padding: 60px 0 60px 0;
+}
+
+hr {
+    color: rgb(95, 95, 95); /*для IE */
+    background-color:rgb(226, 226, 226); /*для Firefox, Opera, Safari*/
+    border:0px none;
+    height:2px; /* высота 1px IE, Firefox, Opera, Safari */
+    clear:both; /* для очистки, если тег идет после float елемента */
 }
 
 .SettingsPage {
@@ -125,23 +133,29 @@ a:focus, a:active {
     color: initial;
 }
 
-.userItem {
-    padding: 0 15px;
-    color: white;
-    margin: 15px 0 0 0;
-    color: black;
-    background: rgb(253, 253, 253);
-    h3 {
-        margin:  0 0 0 15px;
-        width: 100%;
+.userContainer {
+    p {
+        margin: 10px 0 5px 0;
         padding: 0;
     }
 
-    p {
-        margin: 0;
-        padding: 0;
+    .userItem {
+        // padding: 0 15px;
+        margin: 15px 0 0 0;
+        color: white;
+        h3 {
+            margin:  0 0 0 15px;
+            width: 100%;
+            padding: 0;
+        }
+    
+        p {
+            margin: 0;
+            padding: 0;
+        }
     }
 }
+
 
 .usersPage {
     max-width: 450px;
@@ -152,11 +166,10 @@ a:focus, a:active {
 .searchUsersContainer {
     width: 100%;
     max-width: 450px;
-    background: rgb(253, 253, 253);
     border-radius: 8px;
     padding: 1px 0 15px 0;
     color: white;
-    margin: 15px 0 0 0;
+    margin: 0px 0 0 0;
 }
 
 .selectorContainer {

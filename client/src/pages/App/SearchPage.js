@@ -45,11 +45,7 @@ export const SearchPage = () => {
         event.preventDefault()
         setForm({ ...form, [event.target.name]: event.target.value }) 
 
-        console.log(selectors)
-
         try {
-
-            console.log(selector)
 
             if (!form.search || form.search.length <= 1) {
                 return dispatch(clearUsersInSearch())
