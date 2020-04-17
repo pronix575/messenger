@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 export const TopMenu = () => 
 
     <div className="TopMenu flex" style={{ background: "none" }}>
-        <NavLink to="/chat" activeStyle={{ "color": "white" }}>
+        <NavLink to="/chats" activeStyle={{ "color": "white" }}>
             <p>chats</p>
         </NavLink>
         

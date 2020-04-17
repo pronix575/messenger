@@ -12,11 +12,7 @@ import './components/static/css/index.scss';
 import './pages/pages.scss'
 import App from './components/App';
 
-const store = createStore(rootReducer, compose(
-  applyMiddleware( thunk ),
-
-  //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-))
+const start = (store) => 
 
 ReactDOM.render(
   <React.StrictMode>
@@ -27,4 +23,25 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-serviceWorker.unregister();
+try {
+  const store = createStore(rootReducer, compose(
+    applyMiddleware( thunk ),
+  
+   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  ))
+
+  start(store)
+  serviceWorker.unregister();
+
+} catch (e) {
+  const store = createStore(rootReducer, compose(
+    applyMiddleware( thunk ),
+  
+   //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  ))
+
+  start(store)
+  
+  serviceWorker.unregister();
+  
+}

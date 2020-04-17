@@ -9,18 +9,12 @@ export const User = ({ user }) => {
 
     const onClickHandler = () => setOpen(!open)
 
-    let styles = {
-        divActive: {
-            background: "#ededed"
-        }
-    }
+    const onCkickChatButtonHandler = () => {
 
-    if (!open) {
-        styles.divActive.background = "#ffffff"
     }
 
     return (
-        <div onClick={ onClickHandler } className="userContainer" styles={ styles.divActive }>
+        <div onClick={ onClickHandler } className="userContainer">
             <div className="userItem flex" key={ user.shortid } style={{ "justifyContent": "space-between" }}>
                 <div style={{ cursor: "pointer" }} className="settingsAvatar">
                     <AvatarImage 
@@ -42,9 +36,9 @@ export const User = ({ user }) => {
                     <div className="flex-end" style={{ padding: "10px 0px 5px 0px" }}>
 
                     <p>{ user.shortid }</p>
-                        <Button action={() => alert("hello")} text={ <ChatIcon /> } styles={{ background: "#3550ff", color: "white" }} />
+                        <Button action={ onCkickChatButtonHandler } text={ <ChatIcon /> } styles={{ background: "#3550ff", color: "white" }} />
                     </div> 
-                    <hr/>
+                    {/* <hr/> */}
                 </>
             } 
         </div>

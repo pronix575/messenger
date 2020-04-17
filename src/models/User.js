@@ -29,7 +29,7 @@ const scehma = new Schema({
         ref: 'Chat'
     }],
 
-    avatar: { type: String},
+    avatar: { type: String },
 
     friends: [{
         type: Types.ObjectId,

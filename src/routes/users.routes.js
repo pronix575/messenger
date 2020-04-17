@@ -111,9 +111,13 @@ router.post('/new_request', auth, async (req, res) => {
             })
 
             if (tr) {
+                
                 return res.json({ message: "Already exist" })
+
             } else if (req.user.userId == to._id) {
+                
                 return res.json({ message: "It is you" })
+            
             } else {
 
                 from.requests.from.push(to._id)
@@ -222,6 +226,7 @@ router.post('/add_to_friends', auth, async (req, res) => {
             user.friends.push(friend._id)
             friend.friends.push(user.id)
 
+            //deleting
             user.requests.incoming = user.requests.incoming.filter(item => item.toString() !== friend.id.toString())
             friend.requests.from = friend.requests.from.filter(item => item.toString() !== user.id.toString())
 

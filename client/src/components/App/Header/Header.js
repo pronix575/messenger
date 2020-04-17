@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { useSelector } from 'react-redux'
 import { NavLink, Switch, Route } from 'react-router-dom'
@@ -7,12 +7,20 @@ import { Button } from '../Button/Button'
 import './Header.scss'
 import { AvatarImage } from '../../Settings/AvatarImage'
 import { TopMenu } from '../Menu/TopMenu'
+import { useEffect } from 'react'
 
 export const Header = () => {
 
     const { isAuth } = useSelector(state => state.auth)
     
-    const isMobile = window.innerWidth <= 500
+    const [isMobile, setIsMobile] = useState(false)
+    useEffect(() => {
+        setIsMobile((window.innerWidth <= 500) ? true : false) 
+        
+        window.addEventListener("resize", () => {
+            setIsMobile((window.innerWidth <= 500) ? true : false) 
+        })
+    }, [isMobile, setIsMobile])
 
     const avatar = useSelector(state => state.user.avatarUrl)
 

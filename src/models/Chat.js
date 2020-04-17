@@ -1,21 +1,23 @@
 const { Schema, model, Types } = require('mongoose')
 
 const scehma = new Schema({
-
-    id: {
-        type: Number,
+    
+    shortid: {
+        type: String,
         required: true,
         unique: true
     },
 
     users: [{
         type: Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true,
     }],
 
     creator: {
         type: Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true,
     },
 
     messages: [{
@@ -42,7 +44,6 @@ const scehma = new Schema({
 
         media: [{
             type: String,
-
         }]
     }]
 })

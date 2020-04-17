@@ -10,7 +10,7 @@ export const BottomMenu = () => {
     return (
         <div className="BottomMenuContainer">
             <div className="BottomMenu">
-                <NavLink to="/chat" activeStyle={{ "color": "white" }}>
+                <NavLink to="/chats" activeStyle={{ "color": "white" }}>
                     <ChatIcon />
                 </NavLink>
                 <NavLink to="/search" activeStyle={{ "color": "white" }}>

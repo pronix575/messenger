@@ -43,7 +43,13 @@
 }
 
 .appContainer {
-    padding: 60px 0 60px 0;
+    padding: 60px 0 1px 0;
+}
+
+@media (max-width: 500px) {
+    .appContainer {
+        padding: 60px 0 1px 0;
+    }   
 }
 
 hr {
@@ -141,6 +147,8 @@ a:focus, a:active {
 
     .userItem {
         // padding: 0 15px;
+        z-index: 1;
+        width: 100%;
         margin: 15px 0 0 0;
         color: white;
         h3 {
@@ -165,11 +173,15 @@ a:focus, a:active {
 
 .searchUsersContainer {
     width: 100%;
-    max-width: 450px;
     border-radius: 8px;
-    padding: 1px 0 15px 0;
     color: white;
-    margin: 0px 0 0 0;
+    padding: 0 15px 15px 15px;
+    background: rgba(0, 0, 0, 0.68);
+    border: 3px solid white;
+    margin: 15px 0 0 0;
+    backdrop-filter: blur(4px);
+    box-sizing: border-box;
+    z-index: 1;
 }
 
 .selectorContainer {
@@ -190,4 +202,93 @@ a:focus, a:active {
     border-radius: 8px;
     font-size: 16px;
     cursor: pointer;
+}
+
+.ChatsPage {
+    // max-width: 450px;
+    width: 100%;
+    padding: 15px 15px 0;
+}
+
+.ChatsPage {
+
+    .chatsContainer {
+        width: 100%;
+        max-width: 450px;
+        background-color: white;
+        padding: .1px 15px 15px;
+        border-radius: 8px;    
+        
+        a {
+            text-decoration: none;
+            color: black;
+        }
+        
+        .chatItem {
+            width: 100%;
+            max-width: 450px;
+            margin: 15px 0 0 0;
+            cursor: pointer;
+
+            .chatUserData {
+                width: 100%;
+                margin: 0 0 0 15px;
+
+                div {
+                    height: 100%;
+                    flex-direction: column;
+
+                    div {
+                        width: 100%;
+
+                        .lastMessage {
+                            margin: 4px 0 0 0;
+                            font-size: 13px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.ChatPage {
+    height: calc(100vh - 75px);
+    flex-direction: column;
+    padding: 0 15px;
+    
+    .sendMessageContainer {
+        margin: 5px 0 0 0;
+        width: 100%;
+        max-width: 440px;
+        background-color: white;
+        border-radius: 8px;
+        padding: 5px;
+        
+        input {
+            width: 100%;
+            border: none;
+            font-size: 15px;
+            margin: 0 5px;
+        }
+    }
+}
+
+@media (max-width: 500px) {
+    .ChatPage {
+        height: calc(100vh - 171px);
+
+    }
+}
+
+.ChatUserInfo {
+    display: inline-block;
+    padding: 5px;
+    border-radius: 100px;
+    margin: 15px 0 0 0;
+    background-color: white;
+
+    .chatUserName {
+        margin: 0 10px 0 10px; 
+    }
 }

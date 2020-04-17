@@ -71,7 +71,7 @@ export const SearchPage = () => {
         } catch (e) {
             console.warn(e)
         }
-    }, [form, token, dispatch, setForm, selector, selectors])
+    }, [form, token, dispatch, setForm, selector])
 
     const submitHandler = useCallback( async event => {
         event.preventDefault()

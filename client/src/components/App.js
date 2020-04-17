@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { useRoutes } from './Router';
 import { BrowserRouter as Router } from 'react-router-dom' 
 
-import { authInit } from '../redux/actions/authActions'
+import { authInit, loadData } from '../redux/actions/authActions'
 import { useSelector, useDispatch } from 'react-redux'
 
 import wallpaperMojave from './static/media/imgs/wallpaperMojave.jpg'
@@ -14,13 +14,17 @@ const App = () => {
 
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    dispatch(authInit())
-  })
+  dispatch(authInit())
   
   const isAuth = useSelector(state => state.auth.isAuth)
   const changeWindow = useSelector(state => state.user.changeAvatarWindow)
   const routes = useRoutes(isAuth)
+
+  const token = useSelector(state => state.auth.token)
+
+  if (isAuth) {
+    dispatch(loadData(token))
+  }
 
   return (
     <Router>
