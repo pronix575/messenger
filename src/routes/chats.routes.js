@@ -34,12 +34,25 @@ router.get('/all', auth, async (req, res) => {
     } 
 })
 
+router.get('/messages/:id', auth, async (req, res) => {
+    try {
+
+        
+
+    } catch (e) {
+
+    }
+})
+
 router.post('/start_chatting', auth, async (req, res) => {
     try {
 
+        
         const user = await User.findOne({ _id: req.user.userId })
         //companion
         const interlocutor = await User.findOne({ shortid: req.body.shortid })
+
+        console.log({user, interlocutor, id: req.user.userId, idd: req.body.shortid, b: req.body })
         
         const chatCandidate = await Chat.find({
             "$and": [

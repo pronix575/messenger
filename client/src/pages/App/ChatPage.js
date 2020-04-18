@@ -1,61 +1,85 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Button } from '../../components/App/Button/Button'
-import { CursorPointer } from '../../components/App/Icons/CursorPointer'
-import { AvatarImage } from '../../components/Settings/AvatarImage'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { SendMessage } from '../../components/App/Chat/SendMessage'
+import { Messages } from '../../components/App/Chat/Messages'
+import { socket } from '../../sockets/socket'
+import { initChats } from '../../redux/actions/chatsActions'
 
 export const ChatPage = () => {
     
-    const [isMobile, setIsMobile] = useState(false)
-    useEffect(() => {
-        setIsMobile((window.innerWidth <= 500) ? true : false) 
-        
-        window.addEventListener("resize", () => {
-            setIsMobile((window.innerWidth <= 500) ? true : false) 
-        })
-    }, [isMobile, setIsMobile])
-    
-    const chatStyle = (isMobile) ? {} : { height: "calc(100vh - 70px)" }
-    
     const chatId = useParams().id 
+
     const chat = useSelector(state => state.chats.chats.find( chat => chat.shortid === chatId ))
+    const token = useSelector(state => state.auth.token)
+
+    const dispatch = useDispatch()
+
+    if (!chat) {
+        dispatch(initChats(token))
+    } 
+     
+    
+    const [form, setForm] = useState({
+        message: ''
+    })
+
+    useEffect( () => async() => {
+        console.log(chat)
+        
+        try {
+            const data = await fetch(`/api/chats/messages/${ chat.shortid }`, {
+                method: 'GET',
+                headers: {
+                    authorization: `Bearer ${ token }`
+                }
+            })
+
+            const messages = data.json()
+            console.log(messages)
+        } catch (e) {
+            console.warn(e)
+        }    
+
+    }, [socket, chat, form])
+
+
+    const onSubmitkHandler = useCallback( async event => { 
+        event.preventDefault()
+
+        setForm({ ...form, [event.target.name]: event.target.value })
+
+        socket.emit('sendMessage', {
+            shortid: chatId,
+            text: form.message,
+            date: new Date(),
+            token
+        })
+    }, [form, setForm])
+
+
+
+    const onChangeHandler = event => {
+        setForm({ ...form, [event.target.name]: event.target.value })
+    }
+    
 
     return (
         <div className="flex">
-            { !!chat &&
-                <div className="ChatPage flex-end" style={ chatStyle } style={{ width: "100%", padding: "0 15px" }}>
-                    <div style={{ width: "100%", maxWidth: "450px" }}>
-                        <div className="ChatUserInfo">
-                            
-                            <div className="flex-end">
-                                <AvatarImage
-                                    imageurl={ chat.users[0].avatar } 
-                                    styles={{ 
-                                        "minWidth": "25px", 
-                                        "height": "25px", 
-                                        "borderRadius": "100px", "fontSize": "25px" 
-                                    }} 
-                                />
+                <div className="ChatPage flex-end" style={{ width: "100%", padding: "0 15px" }}>
+                
 
-                                <div className="chatUserName">
-                                    { chat.users[0].name }
-                                </div>
-                            </div>  
-                                
-                        </div>
-                    </div>
+                { !!chat ?
+                    
+                    // <Messages messages={ messages } />  :
+                    <div></div> : <div></div>
 
-                    <div className="sendMessageContainer">
-                        <form className="sendMessageForm">
-                            <div className="flex-end" styles={{ margin: "15px 0 0 0" }}> 
-                                <input className="searchField" name="search"></input>
-                                <Button text={ <CursorPointer /> } styles={{ padding: "10px"}} />
-                            </div>
-                        </form>
-                    </div>
+                }
+                    <SendMessage 
+                        onSubmitHandler={ onSubmitkHandler } 
+                        onChangeHandler={ onChangeHandler }
+                    />
                 </div>
-            }
         </div>
     )
 }

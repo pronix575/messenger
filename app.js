@@ -6,6 +6,10 @@ const http = require('http').createServer(app)
 const config = require('config')
 const mongoose = require('mongoose')
 
+const startChatSocket = require('./src/sockets/chatSocket')
+
+startChatSocket(http)
+
 //production
 const production = process.env.NODE_ENV == "production"
 PRODUCTION_PORT = (production) ? 80 : 5000

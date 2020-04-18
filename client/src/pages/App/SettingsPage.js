@@ -9,8 +9,10 @@ export const SettingsPage = () => {
 
     const dispatch = useDispatch()
     
+    const token = useSelector(state => state.auth.token)
+
     const logoutHandler = () => {
-        dispatch(logout())
+        dispatch(logout(token))
     }
 
     const avatar = useSelector(state => state.user.avatarUrl)

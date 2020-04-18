@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Redirect, Switch, Route } from 'react-router-dom'
 
 import { AuthPage } from '../pages/Auth/AuthPage'
@@ -10,17 +10,11 @@ import { BottomMenu } from '../components/App/Menu/BottomMenu'
 import { Header } from './App/Header/Header'
 import { ChatsPage } from '../pages/App/Chats'
 import { ChatPage } from '../pages/App/ChatPage'
+import { useSelector } from 'react-redux'
 
 export const useRoutes = isAuth => {
 
-    const [isMobile, setIsMobile] = useState(false)
-    useEffect(() => {
-        setIsMobile((window.innerWidth <= 500) ? true : false) 
-        
-        window.addEventListener("resize", () => {
-            setIsMobile((window.innerWidth <= 500) ? true : false) 
-        })
-    }, [isMobile, setIsMobile])
+    const isMobile = useSelector(state => state.app.isMobile)
 
 
     if (isAuth) {
@@ -51,7 +45,7 @@ export const useRoutes = isAuth => {
                             <SearchPage />
                         </Route>
 
-                        <Redirect to="/search" />
+                        <Redirect to="/chats" />
                     </Switch>
                 </div>
             </>    

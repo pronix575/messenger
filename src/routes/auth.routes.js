@@ -6,6 +6,7 @@ const { check, validationResult } = require('express-validator')
 const User = require('../models/User')
 const router = Router()
 const shortid = require('shortid')
+const auth = require('../middleware/auth.middleware')
 
 const { 
     
@@ -108,8 +109,6 @@ router.post(
         config.get('jwtSecret'),
         { expiresIn: '6h' }
       )
-      
-      console.log(user.avatar)
 
       res.json({ 
         token, 
@@ -126,5 +125,18 @@ router.post(
   }
 )
 
+
+router.post('/logout', auth, async (req, res) => {
+  try {
+    const user = await User.findOne({ _id: req.user.userId })
+    user.online = false
+    user.save()
+    res.status(200).json({ message: "Success" })
+
+  } catch (e) {
+    res.status(500).json({ message: 'Something wrong, try again later', SOMETHING_WRONG })
+    console.log(e)
+  }
+})
 
 module.exports = router

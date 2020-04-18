@@ -8,10 +8,10 @@ const storageName = 'userData'
 
 export const
 
-login = ({ token, userId, shortid, name, email, avatar }) => dispatch => {
+login = ({ token, userId, shortid, name, email, avatar, online }) => dispatch => {
     
     localStorage.setItem(storageName, JSON.stringify({
-        userId, token, shortid, name, email
+        userId, token, shortid, name, email, online
     }))
     
 
@@ -34,11 +34,22 @@ login = ({ token, userId, shortid, name, email, avatar }) => dispatch => {
     })
 },
 
-logout = () => dispatch => {
+logout = (token) => async dispatch => {
+    
+    try { 
+        fetch('/api/auth/logout', {
+            method: 'POST',
+            headers: {
+                authorization: `Bearer ${ token }`
+            }
+        })
+
+    } catch (e) {
+
+    }
+    
     localStorage.clear()
-
     dispatch(clearChats())
-
     return dispatch({ type: LOG_OUT })
 },
 

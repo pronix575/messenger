@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { loadChats } from '../../redux/actions/chatsActions'
+import { loadChats, initChats } from '../../redux/actions/chatsActions'
 import { ChatItem } from '../../components/Chat/ChatItem'
 
 export const ChatsPage = () => {
@@ -10,29 +10,10 @@ export const ChatsPage = () => {
 
     const dispatch = useDispatch()
 
-
-    const initChats = useCallback(async() => {
-        try {
-
-            const data = await fetch('/api/chats/all', {
-                method: "GET",
-                headers: {
-                    authorization: `Bearer ${ token }`
-                }
-            })
-
-            const chats = await data.json()
-            dispatch(loadChats(chats))
-
-        } catch (e) {
-            console.warn(e)
-        }
-    }, [token, dispatch])
-
     useEffect(() => { 
-        initChats() 
+        dispatch(initChats(token))
     
-    }, [initChats])
+    }, [initChats, dispatch])
         
     return (
         <div className="flex">

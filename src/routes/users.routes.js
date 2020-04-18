@@ -4,7 +4,7 @@ const router = Router()
 const auth = require('../middleware/auth.middleware')
 const { DOES_NOT_EXIST, SUCCESS, FAILED } = require("../event types/types")
 
-const userFilter = { name: 1, email: 1, shortid: 1, avatar: 1, _id: 0 }
+const userFilter = { name: 1, email: 1, shortid: 1, avatar: 1, _id: 0, online: 1 }
 
 router.get('/all', auth, async (req, res) => {
     try {

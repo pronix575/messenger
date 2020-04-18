@@ -258,12 +258,13 @@ a:focus, a:active {
     padding: 0 15px;
     
     .sendMessageContainer {
-        margin: 5px 0 0 0;
         width: 100%;
-        max-width: 440px;
+        margin: 0 5px;
+        max-width: 450px;
         background-color: white;
         border-radius: 8px;
         padding: 5px;
+        box-sizing: border-box;
         
         input {
             width: 100%;
@@ -274,12 +275,18 @@ a:focus, a:active {
     }
 }
 
-@media (max-width: 500px) {
-    .ChatPage {
-        height: calc(100vh - 171px);
-
-    }
+.MessagesArea {
+    height: 100%;
+    width: 100%;
+    max-width: 450px;
+    margin: 10px 0;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    display: flex;
+    flex-direction: column-reverse;
 }
+
+.MessagesArea::-webkit-scrollbar { width: 0; }
 
 .ChatUserInfo {
     display: inline-block;
@@ -287,8 +294,51 @@ a:focus, a:active {
     border-radius: 100px;
     margin: 15px 0 0 0;
     background-color: white;
-
+    
     .chatUserName {
         margin: 0 10px 0 10px; 
+    }
+}
+
+.messageFrom {
+    display: inline-block;
+    padding: 7px 12px;
+    border-radius: 20px 20px 8px 20px;
+    font-size: 18px;
+    background-color: rgb(36, 67, 221);
+    max-width: 60%;
+    margin-top: 10px;
+    overflow: hidden;
+    color: white;
+}
+
+.messageTo {
+    display: inline-block;
+    padding: 7px 12px;
+    border-radius: 20px 20px 20px 8px;
+    font-size: 18px;
+    background-color: rgb(255, 255, 255);
+    max-width: 60%;
+    margin-top: 10px;
+    overflow: hidden;
+    color: rgb(0, 0, 0);
+}
+
+.OnlineStatus {
+    height: 8px;
+    width: 8px;
+    margin: 0 10px 0 0;
+    background-color: rgb(0, 221, 63);
+    border-radius: 10px;
+}
+
+@media (max-width: 500px) {
+    .MessagesArea {
+        overflow: scroll;
+    }
+
+    .ChatPage {
+        height: calc(100vh - 175px);
+
     }
 }

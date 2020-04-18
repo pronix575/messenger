@@ -10,7 +10,7 @@ import * as serviceWorker from './serviceWorker';
 
 import './components/static/css/index.scss';
 import './pages/pages.scss'
-import App from './components/App';
+import App from './components/App'
 
 const start = (store) => 
 
@@ -18,7 +18,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={ store }>  
       <App />
-    </Provider>      
+    </Provider>,
   </React.StrictMode>,
   document.getElementById('root')
 );

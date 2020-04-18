@@ -13,6 +13,11 @@ const scehma = new Schema({
         unique: true
     },
 
+    online: {
+        type: Boolean,
+        default: false
+    },
+
     shortid: {
         type: String,
         required: true,
