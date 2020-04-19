@@ -12,19 +12,14 @@ router.get('/all', auth, async (req, res) => {
 
         const user = await User.findOne({ _id: req.user.userId })
 
-        const chats = await Chat.find({ _id: user.chats }, { _id: 0, messages: { $slice: -1 } })
-        const result = []
-        
-        for (const chat of chats) {
+        let chats = await Chat.find({ _id: user.chats }, { _id: 0 })
 
-            const interlocutor = chat.users.filter(u => u.toString() !== user.id.toString() )
-            
-            chat.users = await User.find({ _id: interlocutor }, userFilter)
+        chats = chats.map(chat => {
+            chat.messages = chat.messages.reverse()
+            return chat
+        })
 
-            result.push( chat )
-        }
-
-        res.json(result)
+        res.json(chats)
 
     } catch (e) {
 
@@ -37,10 +32,16 @@ router.get('/all', auth, async (req, res) => {
 router.get('/messages/:id', auth, async (req, res) => {
     try {
 
-        
+        const chat = await Chat.findOne({ shortid: req.params.id })
+        const messages = chat.messages.reverse()
+
+        res.json(messages)
+
 
     } catch (e) {
 
+        console.warn(e)
+        res.status(500).json({ message: "Server error" })
     }
 })
 
@@ -52,7 +53,7 @@ router.post('/start_chatting', auth, async (req, res) => {
         //companion
         const interlocutor = await User.findOne({ shortid: req.body.shortid })
 
-        console.log({user, interlocutor, id: req.user.userId, idd: req.body.shortid, b: req.body })
+        // console.log({user, interlocutor, id: req.user.userId, idd: req.body.shortid, b: req.body })
         
         const chatCandidate = await Chat.find({
             "$and": [

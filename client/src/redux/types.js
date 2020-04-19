@@ -8,4 +8,6 @@ export const LOG_IN = 'AUTH/LOG_IN',
              ADD_ALL_USERS = 'USERS/ADD_ALL_USERS',
              LOAD_CHATS = 'CHATS/LOAD_CHATS' ,
              CLEAR_DATA = 'CHATS/CLEAR_DATA',
-             SET_DEVICE_TYPE = 'APP/SET_DEVICE_TYPE'
+             SET_DEVICE_TYPE = 'APP/SET_DEVICE_TYPE',
+             LOAD_MESSAGES = 'CHATS/LOAD_MESSAGES',
+             NEW_MESSAGE = 'CHATS/NEW_MESSAGE'

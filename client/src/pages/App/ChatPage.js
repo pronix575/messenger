@@ -1,33 +1,15 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { SendMessage } from '../../components/App/Chat/SendMessage'
 import { Messages } from '../../components/App/Chat/Messages'
 import { socket } from '../../sockets/socket'
-import { initChats } from '../../redux/actions/chatsActions'
+import { LOAD_MESSAGES } from '../../redux/types'
 
 export const ChatPage = () => {
-    
-    const chatId = useParams().id 
-
-    const chat = useSelector(state => state.chats.chats.find( chat => chat.shortid === chatId ))
-    const token = useSelector(state => state.auth.token)
-
-    const dispatch = useDispatch()
-
-    if (!chat) {
-        dispatch(initChats(token))
-    } 
-     
-    
-    const [form, setForm] = useState({
-        message: ''
-    })
-
-    useEffect( () => async() => {
-        console.log(chat)
-        
+    useEffect(() => async () => {
         try {
+
             const data = await fetch(`/api/chats/messages/${ chat.shortid }`, {
                 method: 'GET',
                 headers: {
@@ -35,34 +17,45 @@ export const ChatPage = () => {
                 }
             })
 
-            const messages = data.json()
-            console.log(messages)
+            const messages = await data.json()
+
+            dispatch({ type: LOAD_MESSAGES, payload: { messages: messages, shortid: chatId } })
+
         } catch (e) {
             console.warn(e)
-        }    
+        }
+        
+    }, [])
+    
+    const chatId = useParams().id 
 
-    }, [socket, chat, form])
+    const chat = useSelector(state => state.chats.chats.find( chat => chat.shortid === chatId ))
+    const token = useSelector(state => state.auth.token)
+    const dispatch = useDispatch()
+
+    const [form, setForm] = useState({
+        message: ''
+    })
 
 
-    const onSubmitkHandler = useCallback( async event => { 
+
+    const onSubmitkHandler = event => { 
         event.preventDefault()
 
-        setForm({ ...form, [event.target.name]: event.target.value })
+        // setForm({ ...form, [event.target.name]: event.target.value })
 
         socket.emit('sendMessage', {
             shortid: chatId,
             text: form.message,
-            date: new Date(),
-            token
+            date: Date.now(),
+            token,
+            to_id: chat.users[0].shortid
         })
-    }, [form, setForm])
-
-
+    }
 
     const onChangeHandler = event => {
         setForm({ ...form, [event.target.name]: event.target.value })
     }
-    
 
     return (
         <div className="flex">
@@ -71,8 +64,8 @@ export const ChatPage = () => {
 
                 { !!chat ?
                     
-                    // <Messages messages={ messages } />  :
-                    <div></div> : <div></div>
+                    <Messages messages={ chat.messages } />  :
+                    <div></div>
 
                 }
                     <SendMessage 

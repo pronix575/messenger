@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 
 import { useRoutes } from './Router';
 import { BrowserRouter as Router } from 'react-router-dom' 
 
 import { authInit, loadData } from '../redux/actions/authActions'
+import { newMessage, initChats } from '../redux/actions/chatsActions'
 import { useSelector, useDispatch } from 'react-redux'
 
 import wallpaperMojave from './static/media/imgs/wallpaperMojave.jpg'
@@ -16,7 +17,6 @@ import { socket } from '../sockets/socket'
 const App = () => {
   
   const dispatch = useDispatch()
-
   
   useEffect(() => {
     dispatch(authInit())
@@ -39,13 +39,12 @@ const App = () => {
     socket.emit('setOnline', {
       token, userId
     })
-  }, [token, userId])
 
+    socket.on('newMessage', ({ shortid, message }) => {
+      dispatch(newMessage(message, shortid))
+    })
 
-
-  if (isAuth) {
-    dispatch(loadData(token))
-  }
+  }, [token, userId, dispatch])
 
   return (
     <Router>

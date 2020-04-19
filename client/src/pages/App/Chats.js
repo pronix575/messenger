@@ -1,19 +1,10 @@
-import React, { useEffect, useCallback } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { loadChats, initChats } from '../../redux/actions/chatsActions'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import { ChatItem } from '../../components/Chat/ChatItem'
 
 export const ChatsPage = () => {
 
-    const token = useSelector(state => state.auth.token)
     const chats = useSelector(state => state.chats.chats)
-
-    const dispatch = useDispatch()
-
-    useEffect(() => { 
-        dispatch(initChats(token))
-    
-    }, [initChats, dispatch])
         
     return (
         <div className="flex">
