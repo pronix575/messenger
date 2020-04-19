@@ -50,7 +50,7 @@ const App = () => {
       setTime(true)
       setTimeout(() => {
         setTime(false)
-      }, 100)
+      }, 350)
     }
 
   }, [token, userId, dispatch])

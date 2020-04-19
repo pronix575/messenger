@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { SendMessage } from '../../components/App/Chat/SendMessage'
@@ -10,12 +10,17 @@ export const ChatPage = () => {
     
     const chatId = useParams().id 
 
-    const chat = useSelector(state => state.chats.chats.find( chat => chat.shortid === chatId ))
+    const chats = useSelector(state => state.chats.chats)
+
+    const chat = chats.find( chat => chat.shortid === chatId )
+
     const token = useSelector(state => state.auth.token)    
     const dispatch = useDispatch()
 
-    useLayoutEffect(() => {
+    useEffect(() => {
+        console.log(chat)
         dispatch(initChats(token))
+    
     }, [dispatch, token])
     // const dispatch = useDispatch()
 
@@ -35,7 +40,9 @@ export const ChatPage = () => {
                 to_id: chat.users[0].shortid
             })
             
-            setForm({ message: '' })
+            setTimeout(() => {
+                setForm({ message: '' })
+            }, 50)
         } else {
             dispatch(initChats(token))
         }
