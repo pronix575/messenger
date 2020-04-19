@@ -1,0 +1,6 @@
+{
+    "port": 80,
+    "mongoUrl": "",
+    "jwtSecret": "sdfshdfdufhdsfhsfdsfddsfydsf8ysf78dfysdbfydfusd7fvfhskfhskf",
+    "baseUrl": "http://194.67.113.82"
+}

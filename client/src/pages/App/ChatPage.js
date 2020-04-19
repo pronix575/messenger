@@ -22,7 +22,6 @@ export const ChatPage = () => {
         dispatch(initChats(token))
     
     }, [dispatch, token])
-    // const dispatch = useDispatch()
 
     const [form, setForm] = useState({
         message: ''
