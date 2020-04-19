@@ -6,7 +6,7 @@ export const Message = ({ message }) => {
     const id = useSelector(state => state.auth.userId)
 
     return (
-        <>
+        <div>
             { message.creator === id ?
                 <div className="flex-end">
                     <div></div>
@@ -18,6 +18,6 @@ export const Message = ({ message }) => {
                     <div></div>
                 </div>        
             }      
-        </>
+        </div>
     )    
 }

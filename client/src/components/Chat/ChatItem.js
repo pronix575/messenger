@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { AvatarImage } from '../Settings/AvatarImage'
 import { NavLink } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
@@ -51,8 +51,8 @@ export const ChatItem = ({ chat }) => {
                             { user.name }
                         </div>
                         
-                        <div className="flex-end">
-                            { lastMessage.text }
+                        <div>
+                            { (!!lastMessage.text) ? lastMessage.text : <div>Сообщений нет</div>  }
                         </div>
                     </div>
                 </div>

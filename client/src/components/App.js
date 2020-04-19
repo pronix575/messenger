@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useRoutes } from './Router';
 import { BrowserRouter as Router } from 'react-router-dom' 
 
-import { authInit, loadData } from '../redux/actions/authActions'
-import { newMessage, initChats } from '../redux/actions/chatsActions'
+import { authInit } from '../redux/actions/authActions'
+import { newMessage } from '../redux/actions/chatsActions'
 import { useSelector, useDispatch } from 'react-redux'
 
 import wallpaperMojave from './static/media/imgs/wallpaperMojave.jpg'
@@ -15,6 +15,8 @@ import { setDeviceType } from '../redux/actions/appActions';
 import { socket } from '../sockets/socket'
 
 const App = () => {
+
+  const [time, setTime] = useState(false)
   
   const dispatch = useDispatch()
   
@@ -40,9 +42,16 @@ const App = () => {
       token, userId
     })
 
-    socket.on('newMessage', ({ shortid, message }) => {
-      dispatch(newMessage(message, shortid))
-    })
+    if (!time) {
+ 
+      socket.on('newMessage', ({ shortid, message }) => {
+        dispatch(newMessage(message, shortid))
+      })
+      setTime(true)
+      setTimeout(() => {
+        setTime(false)
+      }, 100)
+    }
 
   }, [token, userId, dispatch])
 

@@ -22,7 +22,7 @@ export const User = ({ user }) => {
         setLoading(true)
 
         try {
-            console.log(user.shortid)
+            
             const data = await fetch('/api/chats/start_chatting', {
                 method: 'POST',
                 
@@ -38,7 +38,8 @@ export const User = ({ user }) => {
 
             const chat = await data.json()
 
-            if (chat.shortid) {
+            if (!(chat.message === "It's impossible")) {
+                
                 history.push(`/chat/${ chat.shortid }`)
             } else {
                 alert('В этой версии возможность писать себе отключена, ибо нефиг')

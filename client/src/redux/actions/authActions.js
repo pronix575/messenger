@@ -15,7 +15,6 @@ login = ({ token, userId, shortid, name, email, avatar, online }) => dispatch =>
     
 
     if (avatar) {
-
         localStorage.setItem('avatar', JSON.stringify(avatar))
         dispatch(setAvatar(avatar))
     }

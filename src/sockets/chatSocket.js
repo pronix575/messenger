@@ -43,36 +43,46 @@ const startChatSocket = (http) => {
                 const user_to = await User.findOne({ shortid: to_id })
 
                 const chat = await Chat.findOne({ shortid })
-                
+
                 const new_message = {
                     text,
                     createdDate: date,
                     viewed: false,
-                    creator: user_from.id
+                    creator: userId
                 }
                 
-                chat.messages.push(new_message)
+                chat.messages.unshift(new_message)
                 
-                chat.save()
+                try {
+                    console.log({chat, msgs: chat.messages})
+                    chat.save()
+                } catch (e) {
+                    console.warn(e)
+                }
                 
                 const from = users.find(user => user.userid === user_from.id)
+            
+                const message = chat.messages[0]
+                
+                
+                
                 if (user_to) {
                     const to = users.find(user => user.userid === user_to.id)
-                
-                    io.sockets.connected[to.sid].emit('newMessage', {
-                        shortid: chat.shortid,
-                        message: message
-                    })
+                    
+                    if (to) {
+                        io.sockets.connected[to.sid].emit('newMessage', {
+                            shortid: chat.shortid,
+                            message: message
+                        })
+                    }
                 }
                 
-                const message = chat.messages.pop()
+                console.log(message)
 
                 io.sockets.connected[from.sid].emit('newMessage', {
                     shortid: chat.shortid,
                     message: message
                 })
-
-
 
             } catch (e) {
                 console.warn(e)
@@ -82,7 +92,7 @@ const startChatSocket = (http) => {
         socket.on('disconnect', async () => {
 
             try {
-                console.log(users, socket.id)
+                // console.log(users, socket.id)
 
                 const user = await User.findOne({ _id: users.find(user => user.sid === socket.id).userid })
                 user.online = false
@@ -99,8 +109,7 @@ const startChatSocket = (http) => {
     })
 }
 
-const log = () => setInterval(() => console.log(users, new Date()), 10000)
-
-log()
+// const log = () => setInterval(() => console.log(users, new Date()), 5000)
+// log()
 
 module.exports = startChatSocket

@@ -12,14 +12,17 @@ router.get('/all', auth, async (req, res) => {
 
         const user = await User.findOne({ _id: req.user.userId })
 
-        let chats = await Chat.find({ _id: user.chats }, { _id: 0 })
+        let chats = await Chat.find({ _id: [...user.chats] }, { _id: 0 })
+        const new_chats = []
 
-        chats = chats.map(chat => {
-            chat.messages = chat.messages.reverse()
-            return chat
-        })
+        for (const chat of chats) {
+            const users = await User.find({ _id: chat.users.filter(u => u.toString() !== user.id.toString()) }, userFilter)
+            chat.users = users
+            new_chats.push(chat)
+        }
 
-        res.json(chats)
+        // console.log(new_chats)
+        res.json(new_chats)
 
     } catch (e) {
 

@@ -20,7 +20,7 @@ const handlers = {
 
         const chats = state.chats.map( chat => {
             if (chat.shortid === payload.shortid) {
-
+                // console.log({ payload }, chat.messages.unshift( payload.message ), chat)
                 chat.messages.push( payload.message )
                 return chat
             
